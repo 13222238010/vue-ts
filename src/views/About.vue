@@ -1,9 +1,9 @@
 <!--  -->
 <template>
   <div>
-   ` <portal to="destination">
-      <el-button type="success">下一步</el-button>
-    </portal>`
+    <portal to="destination">
+      <el-button type="primary">下一步</el-button>
+    </portal>
     <Child>
       <portal-target name="destination"> </portal-target>
       <template #header="{ users: scoped }">
@@ -21,7 +21,7 @@
 import Child from './Child'
 
 export default {
-  data() {
+  data () {
     return {}
   },
 

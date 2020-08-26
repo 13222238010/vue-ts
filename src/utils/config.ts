@@ -11,4 +11,7 @@ if (process.env.NODE_ENV === 'development') {
   config.client_id = '502176cec65773057a9e'
   config.client_secret = '65d444de381a026301a2c7cffb6952b9a86ac235'
 }
+
+export const ApiPrefix = '/api/aicas'
+
 export default config
