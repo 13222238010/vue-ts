@@ -1,5 +1,20 @@
-const path = require('path');
-const sourceMap = process.env.NODE_ENV === 'development';
+const path = require('path')
+
+const sourceMap = process.env.NODE_ENV === 'development'
+const cdn = {
+  css: [
+    // element-ui css
+    'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
+  ],
+  js: [
+    // vue
+    'https://unpkg.com/vue/2.6.11/vue.min.js',
+    // element-ui
+    'https://unpkg.com/element-ui/lib/index.js',
+    // vuex
+    'https://unpkg.com/vuex/3.4.0/vuex.min.js',
+  ],
+}
 
 module.exports = {
   // 基本路径
@@ -10,14 +25,29 @@ module.exports = {
   lintOnSave: true,
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-  chainWebpack: () => {},
+
+  chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      args[0].cdn = cdn
+      return args
+    })
+  },
   configureWebpack: config => {
+    let settings = {}
     if (process.env.NODE_ENV === 'production') {
+      settings = {
+        externals: {
+          vue: 'Vue',
+          'element-ui': 'ELEMENT',
+          vuex: 'Vuex',
+        },
+      }
       // 为生产环境修改配置...
-      config.mode = 'production';
+      config.mode = 'production'
+      return settings
     } else {
       // 为开发环境修改配置...
-      config.mode = 'development';
+      config.mode = 'development'
     }
 
     Object.assign(config, {
@@ -26,10 +56,10 @@ module.exports = {
         extensions: ['.js', '.vue', '.json', '.ts', '.tsx'],
         alias: {
           vue$: 'vue/dist/vue.js',
-          '@': path.resolve(__dirname, './src')
-        }
-      }
-    });
+          '@': path.resolve(__dirname, './src'),
+        },
+      },
+    })
   },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: sourceMap,
@@ -42,7 +72,7 @@ module.exports = {
     // css预设器配置项
     loaderOptions: {},
     // 启用 CSS modules for all css / pre-processor files.
-    modules: false
+    modules: false,
   },
   // use thread-loader for babel & TS in production build
   // enabled by default if the machine has more than 1 cores
@@ -67,14 +97,14 @@ module.exports = {
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/api': ''
-        }
-      }
+          '^/api': '',
+        },
+      },
     },
-    before: app => {}
+    before: app => {},
   },
   // 第三方插件配置
   pluginOptions: {
     // ...
-  }
-};
+  },
+}

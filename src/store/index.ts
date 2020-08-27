@@ -1,11 +1,18 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
+const path = require('path')
 
-Vue.use(Vuex);
+Vue.use(Vuex)
+const files = require.context('./modules', false, /\.js$/)
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
+let modules: any = {}
+files.keys().forEach(key => {
+  let name = path.basename(key, '.js')
+  modules[name] = files(key).default || files(key)
+})
+
+const store = new Vuex.Store({
   actions: {},
-  modules: {}
-});
+  modules,
+})
+export default store

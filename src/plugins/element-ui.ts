@@ -15,10 +15,13 @@ import {
   ColorPicker,
   Loading,
   Progress,
+  Message,
+  MessageBox,
+  Notification,
 } from 'element-ui'
 
 const element = {
-  install: function(Vue) {
+  install: function(Vue: any) {
     Vue.use(Button)
     Vue.use(Scrollbar)
     Vue.use(DatePicker)
@@ -35,6 +38,9 @@ const element = {
     Vue.use(PortalVue)
   },
 }
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$notify = Notification
 
 Vue.prototype.$ELEMENT = {
   size: 'small',

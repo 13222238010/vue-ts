@@ -5,8 +5,8 @@
       <el-button type="primary">下一步</el-button>
     </portal>
     <Child>
-      <portal-target name="destination"> </portal-target>
       <template #header="{ users: scoped }">
+        <portal-target name="destination"> </portal-target>
         <h1>{{ scoped.name }}</h1>
         <span>Here might be a page title</span>
       </template>

@@ -69,7 +69,6 @@ export function getCommonHeader() {
   return {
     token: encodeURIComponent(token || ''),
     staffId: encodeURIComponent(staffId || ''),
-    channelType: '01', // 接入渠道 01 WEB;02 短信;03 WAP; 04 IVR;05自助终端;
   }
 }
 

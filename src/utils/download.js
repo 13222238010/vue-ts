@@ -30,6 +30,21 @@ export const CONTENT_TYPE_BLOB_SUFFIX = {
   'image/jpeg': '.jpeg',
   'image/gif': '.gif',
 }
+/**
+ * 下载文件
+ * @param {Blob|String} data Blob文件流数据 或者 图片Base64编码
+ * @param {String} fileName 文件名
+ */
+function download(data, fileName) {
+  const link = document.createElement('a')
+  link.download = fileName
+  link.style.display = 'none'
+  link.href = data
+  document.body.appendChild(link)
+  link.click()
+  URL.revokeObjectURL(link.href)
+  document.body.removeChild(link)
+}
 
 /**
  * 下载blob流
@@ -47,22 +62,6 @@ export function downloadBlob(contentType, blob, fileName) {
     // IE10+下载
     navigator.msSaveBlob(blob, fileName)
   }
-}
-
-/**
- * 下载文件
- * @param {Blob|String} data Blob文件流数据 或者 图片Base64编码
- * @param {String} fileName 文件名
- */
-function download(data, fileName) {
-  const link = document.createElement('a')
-  link.download = fileName
-  link.style.display = 'none'
-  link.href = data
-  document.body.appendChild(link)
-  link.click()
-  URL.revokeObjectURL(link.href)
-  document.body.removeChild(link)
 }
 
 /**
